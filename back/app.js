@@ -10,10 +10,12 @@ app.use(express.json());
 //importe das rotas /ROUTES...
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var gamesRouter = require('./routes/games');
 
 //DEFIRNIR OS ENDPOINTS//RECURSO PARA AS ROTAS
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/games', gamesRouter);
 
 
 // view engine setup
