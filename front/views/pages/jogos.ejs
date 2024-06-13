@@ -40,8 +40,8 @@
                             </td>
                             <%}%>
                                 <td>
-                                    <button onclick="editPet('<%=pet.id%>')">Editar</button>
-                                    <button onclick="deletePet('<%=pet.id%>')">Deletar</button>
+                                    <button onclick="editgames('<%=pet.id%>')">Editar</button>
+                                    <button onclick="deletegames('<%=pet.id%>')">Deletar</button>
                                 </td>
                     </tr>
                     <%}%>
@@ -53,52 +53,52 @@
             form.addEventListener("submit", (e) => {
                 e.preventDefault()
                 const pet = mountDataForm()
-                let id = pet.id
+                let id = game.id
                 let METHOD = id ? 'PUT' : 'POST';
                 let URL = id ? `/pets/${id}` : '/pets';
-                createOrUpdate(pet, URL, METHOD)
+                createOrUpdate(game, URL, METHOD)
             })
 
-            // CRIAR OU ATULIZAR PET
-            function createOrUpdate(pet, URL, METHOD) {
-                console.log(pet)
+            // CRIAR OU ATULIZAR jogos
+            function createOrUpdate(game, URL, METHOD) {
+                console.log(game)
                 fetch(URL, {
                     method: METHOD,
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(pet)
+                    body: JSON.stringify(game)
                 })
                     .then(async (res) => { return await checkError(res) })
-                    .then((pet) => {
+                    .then((game) => {
                         form.reset()
                         window.location.reload()
                     })
                     .catch((error) => { document.getElementById('error').innerText = error })
             }
 
-            // BUSCAR PET A SER EDITADO PELO ID E CARREGAR NOS INPUTS DO FORM
-            function editPet(id) {
+            // BUSCAR jogos A SER EDITADO PELO ID E CARREGAR NOS INPUTS DO FORM
+            function editgames(id) {
             console.log(id)
                 fetch("/pets/" + id, {
                     method: "GET"
                 })
                     .then(async (res) => { return await checkError(res) })
-                    .then((pet) => {
-                        console.log('retornou o PET', pet)
-                        for (let prop in pet) {
+                    .then((game) => {
+                        console.log('retornou o PET', game)
+                        for (let prop in game) {
                             const input = document.querySelector(`input[name="${prop}"]`);
-                            input.value = pet[prop]
+                            input.value = game[prop]
                         }
                     })
                     .catch((error) => { document.getElementById('error').innerText = error })
             }
 
-            // DELETAR UM PET PELO ID
-            function deletePet(id) {
+            // DELETAR UM jogo PELO ID
+            function deletegames(id) {
                 fetch("/pets/" + id, {
                     method: "DELETE"
                 })
                     .then(async (res) => { return await checkError(res) })
-                    .then((pet) => {
+                    .then((game) => {
                         window.location.reload()
                     })
                     .catch((error) => { document.getElementById('error').innerText = error })
@@ -116,11 +116,11 @@
             // MONTAR DADOS DO FORMULÁRIO USANDO FORMDATA
             function mountDataForm() {
                 const formData = new FormData(form)
-                const pet = {}
+                const game = {}
                 formData.forEach((v, k) => {
-                    pet[k] = v
+                    game[k] = v
                 })
-                return pet
+                return game
             }
 
         </script>
